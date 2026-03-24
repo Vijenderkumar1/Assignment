@@ -1,0 +1,68 @@
+#Wap take 1-dimesion array that  convert into numpy and panda
+
+import numpy as np
+import pandas as pd
+
+data = [10, 20, 30, 40, 50]
+
+np_array = np.array(data)
+series = pd.Series(data)
+
+print("NumPy Array:")
+print(np_array)
+
+print("\nPandas Series:")
+print(series)
+
+
+#wap take 2-Dimesion array and convert into 1-dimesion array using numpy and panda
+
+import numpy as np
+import pandas as pd
+
+data = [[1, 2, 3],
+        [4, 5, 6]]
+
+np_array = np.array(data)
+np_1d = np_array.flatten()
+
+df = pd.DataFrame(data)
+pd_1d = df.values.flatten()
+
+print("NumPy 1D Array:")
+print(np_1d)
+
+print("\nPandas 1D Array:")
+print(pd_1d)
+
+#wap take 5 different coordinate value and find out the total error using linear degration(straight line(y=mx+c))
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.array([1, 2, 3, 4, 5])
+y = np.array([2, 4, 5, 4, 5])
+
+n = len(x)
+
+m = (n*np.sum(x*y) - np.sum(x)*np.sum(y)) / (n*np.sum(x**2) - (np.sum(x))**2)
+c = (np.sum(y) - m*np.sum(x)) / n
+
+y_pred = m*x + c
+
+error = np.sum((y - y_pred)**2)
+
+print("Slope (m):", m)
+print("Intercept (c):", c)
+print("Total Error:", error)
+
+plt.scatter(x, y)
+plt.plot(x, y_pred)
+
+for i in range(len(x)):
+    plt.plot([x[i], x[i]], [y[i], y_pred[i]])
+
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Linear Regression with Error (Vertical Lines)")
+plt.show()
