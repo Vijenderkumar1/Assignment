@@ -1,0 +1,73 @@
+#perform logistic regression,knn,svm,naive bayes on the given dataset?
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import standard scaler
+from sklearn.model selection import train test split
+from sklearn.metrics import accuracy score
+from sklearn.linear model import Logistic Regression
+from sklearn.svm import SVC
+from sklearn.neighbours import KNeighbour classifier
+from sklearn.naive_bayes import Gaussian NB
+
+def run models(x, y):
+    X = X.fillna(X.mean(numeric_only = True))
+    Scaler = Standard Scaler()
+    X_scaled = Scaler.fit transform(X)
+
+    X_train, X_test, y_train, y_test = train test split(X, y, 
+        test size = 0.2, random state = 42)
+
+    models = {
+        "Logistic Regression": Logistic Regression(max iter = 1000),
+        "SVM": SVC(kernel = 'rbf'),
+        "KNN": K Neighbour Classifier(n neighbours = 5),
+        "Naive Bayes": Gaussian NB()
+    }
+
+    result = {}
+
+    for name, model in models.items():
+        model.fit(X_train, y_train)
+        y pred = model.predict(X_test)
+        result[name] = accuracy score(y_test, y pred)
+
+    return results
+
+
+# DIABETES
+df = pd.read csv("diabetes.csv")
+X1 = df.drop(columns = ["Outcome"])
+y1 = df["Outcome"]
+res1 = run models(X1, y1)
+
+
+# SOCIAL ADS
+df = pd.read csv("Social Network Ads.csv")
+df = df.drop(columns = ["User ID"])
+df["Gender"] = df["Gender"].map({"Male":0, "Female":1})
+
+X2 = df[["Age", "Estimated Salary"]]
+y2 = df["Purchased"]
+res2 = run models(X2, y2)
+
+
+# Titanic
+df = pd.read csv("titanic.csv")
+df["Sex"] = df["sex"].map({"Male":0, "Female":1})
+df = df[["Class", "sex", "Age", "Fare", "Survived"]]
+
+df = df.dropna()
+
+X3 = df.drop(columns = ["Survived"])
+y3 = df["Survived"]
+
+res3 = run models(X3, y3)
+
+table = pd.DataFrame({
+    "Diabetes": res1,
+    "Social Ads": res2,
+    "Titanic": res3
+})
+
+print("\n === FINAL TABLE === \n")
+print(table)
